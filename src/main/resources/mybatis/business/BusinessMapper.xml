@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bootdo.business.dao.BusinessDao">
+
+    <select id="get" resultType="com.bootdo.business.domain.BusinessDO">
+		select `tb_id`,`tb_user_id`,`tb_store_name`,`tb_starting_price`,`tb_address`,`tb_phone`,`tb_photo`,`tb_longitude`,`tb_latitude`,`tb_geo_code` from tb_business where tb_id = #{value}
+	</select>
+    <select id="getByUserId" resultType="com.bootdo.business.domain.BusinessDO">
+		select `tb_id`,`tb_user_id`,`tb_store_name`,`tb_starting_price`,`tb_address`,`tb_phone`,`tb_photo`,`tb_longitude`,`tb_latitude` from tb_business where tb_user_id = #{value}
+	</select>
+
+    <select id="getBusinessByLocation" resultType="com.bootdo.business.domain.BusinessDO">
+        select
+        `tb_id`,`tb_user_id`,`tb_store_name`,`tb_starting_price`,`tb_address`,`tb_phone`,`tb_photo`,`tb_longitude`,`tb_latitude`,`tb_geo_code`
+        from tb_business
+        <where>
+            and `tb_geo_code` IN
+            (#{geoCode},#{geoCode1},#{geoCode2},#{geoCode3},#{geoCode4},#{geoCode5},#{geoCode6},#{geoCode7},#{geoCode8})
+        </where>
+        LIMIT #{start} , #{end}
+    </select>
+
+    <select id="list" resultType="com.bootdo.business.domain.BusinessDO">
+        select
+        `tb_id`,`tb_user_id`,`tb_store_name`,`tb_starting_price`,`tb_address`,`tb_phone`,`tb_photo`,`tb_longitude`,`tb_latitude`,`tb_geo_code`
+        from tb_business
+        <where>
+            <if test="tbId != null and tbId != ''">and tb_id = #{tbId}</if>
+            <if test="tbUserId != null and tbUserId != ''">and tb_user_id = #{tbUserId}</if>
+            <if test="tbStoreName != null and tbStoreName != ''">and tb_store_name =
+                #{tbStoreName}
+            </if>
+            <if test="tbStartingPrice != null and tbStartingPrice != ''">and tb_starting_price =
+                #{tbStartingPrice}
+            </if>
+            <if test="tbAddress != null and tbAddress != ''">and tb_address = #{tbAddress}</if>
+            <if test="tbPhone != null and tbPhone != ''">and tb_phone = #{tbPhone}</if>
+            <if test="tbPhoto != null and tbPhoto != ''">and tb_photo = #{tbPhoto}</if>
+            <if test="tbLongitude != null and tbLongitude != ''">and tb_longitude = #{tbLongitude}
+            </if>
+            <if test="tbLatitude != null and tbLatitude != ''">and tb_latitude = #{tbLatitude}</if>
+            <if test="tbGeoCode != null and tbGeoCode != ''">and tb_geo_code = #{tbGeoCode}</if>
+        </where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+            <otherwise>
+                order by tb_id desc
+            </otherwise>
+        </choose>
+        <if test="offset != null and limit != null">
+            limit #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="count" resultType="int">
+        select count(*) from tb_business
+        <where>
+            <if test="tbId != null and tbId != ''">and tb_id = #{tbId}</if>
+            <if test="tbUserId != null and tbUserId != ''">and tb_user_id = #{tbUserId}</if>
+            <if test="tbStoreName != null and tbStoreName != ''">and tb_store_name =
+                #{tbStoreName}
+            </if>
+            <if test="tbStartingPrice != null and tbStartingPrice != ''">and tb_starting_price =
+                #{tbStartingPrice}
+            </if>
+            <if test="tbAddress != null and tbAddress != ''">and tb_address = #{tbAddress}</if>
+            <if test="tbPhone != null and tbPhone != ''">and tb_phone = #{tbPhone}</if>
+            <if test="tbPhoto != null and tbPhoto != ''">and tb_photo = #{tbPhoto}</if>
+            <if test="tbLongitude != null and tbLongitude != ''">and tb_longitude = #{tbLongitude}
+            </if>
+            <if test="tbLatitude != null and tbLatitude != ''">and tb_latitude = #{tbLatitude}</if>
+            <if test="tbGeoCode != null and tbGeoCode != ''">and tb_geo_code = #{tbGeoCode}</if>
+        </where>
+    </select>
+
+    <insert id="save" parameterType="com.bootdo.business.domain.BusinessDO" useGeneratedKeys="true"
+        keyProperty="tbId">
+		insert into tb_business
+		(
+			`tb_user_id`, 
+			`tb_store_name`, 
+			`tb_starting_price`, 
+			`tb_address`, 
+			`tb_phone`, 
+			`tb_photo`, 
+			`tb_longitude`, 
+			`tb_latitude`,
+			`tb_geo_code`
+		)
+		values
+		(
+			#{tbUserId}, 
+			#{tbStoreName}, 
+			#{tbStartingPrice}, 
+			#{tbAddress}, 
+			#{tbPhone}, 
+			#{tbPhoto}, 
+			#{tbLongitude}, 
+			#{tbLatitude},
+			#{tbGeoCode}
+		)
+	</insert>
+
+    <update id="update" parameterType="com.bootdo.business.domain.BusinessDO">
+        update tb_business
+        <set>
+            <if test="tbUserId != null">`tb_user_id` = #{tbUserId},</if>
+            <if test="tbStoreName != null">`tb_store_name` = #{tbStoreName},</if>
+            <if test="tbStartingPrice != null">`tb_starting_price` = #{tbStartingPrice},</if>
+            <if test="tbAddress != null">`tb_address` = #{tbAddress},</if>
+            <if test="tbPhone != null">`tb_phone` = #{tbPhone},</if>
+            <if test="tbPhoto != null">`tb_photo` = #{tbPhoto},</if>
+            <if test="tbLongitude != null">`tb_longitude` = #{tbLongitude},</if>
+            <if test="tbLatitude != null">`tb_latitude` = #{tbLatitude},</if>
+            <if test="tbGeoCode != null">`tb_geo_code` = #{tbGeoCode}</if>
+        </set>
+        where tb_id = #{tbId}
+    </update>
+
+    <delete id="remove">
+		delete from tb_business where tb_id = #{value}
+	</delete>
+
+    <delete id="batchRemove">
+        delete from tb_business where tb_id in
+        <foreach item="tbId" collection="array" open="(" separator="," close=")">
+            #{tbId}
+        </foreach>
+    </delete>
+
+</mapper>

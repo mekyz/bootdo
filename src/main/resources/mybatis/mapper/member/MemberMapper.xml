@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bootdo.member.dao.MemberDao">
+
+	<select id="get" resultType="com.bootdo.member.domain.MemberDO">
+		select `tm_id`,`tm_account`,`tm_password`,`tm_name`,`tm_phone`,`tm_photo`,`tm_type`,`tm_longitude`,`tm_latitude` from tb_member where tm_id = #{value}
+	</select>
+
+	<select id="list" resultType="com.bootdo.member.domain.MemberDO">
+		select `tm_id`,`tm_account`,`tm_password`,`tm_name`,`tm_phone`,`tm_photo`,`tm_type`,`tm_longitude`,`tm_latitude` from tb_member
+        <where>  
+		  		  <if test="tmId != null and tmId != ''"> and tm_id = #{tmId} </if>
+		  		  <if test="tmAccount != null and tmAccount != ''"> and tm_account = #{tmAccount} </if>
+		  		  <if test="tmPassword != null and tmPassword != ''"> and tm_password = #{tmPassword} </if>
+		  		  <if test="tmName != null and tmName != ''"> and tm_name = #{tmName} </if>
+		  		  <if test="tmPhone != null and tmPhone != ''"> and tm_phone = #{tmPhone} </if>
+		  		  <if test="tmPhoto != null and tmPhoto != ''"> and tm_photo = #{tmPhoto} </if>
+		  		  <if test="tmType != null and tmType != ''"> and tm_type = #{tmType} </if>
+		  		  <if test="tmLongitude != null and tmLongitude != ''"> and tm_longitude = #{tmLongitude} </if>
+		  		  <if test="tmLatitude != null and tmLatitude != ''"> and tm_latitude = #{tmLatitude} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by tm_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from tb_member
+		 <where>  
+		  		  <if test="tmId != null and tmId != ''"> and tm_id = #{tmId} </if>
+		  		  <if test="tmAccount != null and tmAccount != ''"> and tm_account = #{tmAccount} </if>
+		  		  <if test="tmPassword != null and tmPassword != ''"> and tm_password = #{tmPassword} </if>
+		  		  <if test="tmName != null and tmName != ''"> and tm_name = #{tmName} </if>
+		  		  <if test="tmPhone != null and tmPhone != ''"> and tm_phone = #{tmPhone} </if>
+		  		  <if test="tmPhoto != null and tmPhoto != ''"> and tm_photo = #{tmPhoto} </if>
+		  		  <if test="tmType != null and tmType != ''"> and tm_type = #{tmType} </if>
+		  		  <if test="tmLongitude != null and tmLongitude != ''"> and tm_longitude = #{tmLongitude} </if>
+		  		  <if test="tmLatitude != null and tmLatitude != ''"> and tm_latitude = #{tmLatitude} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.bootdo.member.domain.MemberDO" useGeneratedKeys="true" keyProperty="tmId">
+		insert into tb_member
+		(
+			`tm_account`, 
+			`tm_password`, 
+			`tm_name`, 
+			`tm_phone`, 
+			`tm_photo`, 
+			`tm_type`, 
+			`tm_longitude`, 
+			`tm_latitude`
+		)
+		values
+		(
+			#{tmAccount}, 
+			#{tmPassword}, 
+			#{tmName}, 
+			#{tmPhone}, 
+			#{tmPhoto}, 
+			#{tmType}, 
+			#{tmLongitude}, 
+			#{tmLatitude}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.bootdo.member.domain.MemberDO">
+		update tb_member 
+		<set>
+			<if test="tmAccount != null">`tm_account` = #{tmAccount}, </if>
+			<if test="tmPassword != null">`tm_password` = #{tmPassword}, </if>
+			<if test="tmName != null">`tm_name` = #{tmName}, </if>
+			<if test="tmPhone != null">`tm_phone` = #{tmPhone}, </if>
+			<if test="tmPhoto != null">`tm_photo` = #{tmPhoto}, </if>
+			<if test="tmType != null">`tm_type` = #{tmType}, </if>
+			<if test="tmLongitude != null">`tm_longitude` = #{tmLongitude}, </if>
+			<if test="tmLatitude != null">`tm_latitude` = #{tmLatitude}</if>
+		</set>
+		where tm_id = #{tmId}
+	</update>
+	
+	<delete id="remove">
+		delete from tb_member where tm_id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from tb_member where tm_id in 
+		<foreach item="tmId" collection="array" open="(" separator="," close=")">
+			#{tmId}
+		</foreach>
+	</delete>
+
+</mapper>

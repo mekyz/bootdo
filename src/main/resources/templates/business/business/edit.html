@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content ">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-content">
+						<form class="form-horizontal m-t" id="signupForm">
+						<input id="tb_id" name="tb_id" th:value="${business.tb_id}"  type="hidden">
+							<div class="form-group">	
+								<label class="col-sm-3 control-label">系统用户表id：</label>
+								<div class="col-sm-8">
+									<input id="tbUserId" name="tbUserId" th:value="${business.tbUserId}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">商店名字：</label>
+								<div class="col-sm-8">
+									<input id="tbStoreName" name="tbStoreName" th:value="${business.tbStoreName}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">起送价格：</label>
+								<div class="col-sm-8">
+									<input id="tbStartingPrice" name="tbStartingPrice" th:value="${business.tbStartingPrice}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">商家地址：</label>
+								<div class="col-sm-8">
+									<input id="tbAddress" name="tbAddress" th:value="${business.tbAddress}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">商家电话：</label>
+								<div class="col-sm-8">
+									<input id="tbPhone" name="tbPhone" th:value="${business.tbPhone}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">店铺图片：</label>
+								<div class="col-sm-8">
+									<input id="tbPhoto" name="tbPhoto" th:value="${business.tbPhoto}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">店铺位置（经度）：</label>
+								<div class="col-sm-8">
+									<input id="tbLongitude" name="tbLongitude" th:value="${business.tbLongitude}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">店铺位置（纬度）：</label>
+								<div class="col-sm-8">
+									<input id="tbLatitude" name="tbLatitude" th:value="${business.tbLatitude}" class="form-control" type="text">
+								</div>
+							</div>
+																					<div class="form-group">
+								<div class="col-sm-8 col-sm-offset-3">
+									<button type="submit" class="btn btn-primary">提交</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+	</div>
+	</div>
+	<div th:include="include::footer"></div>
+	<script type="text/javascript" src="/js/appjs/business/business/edit.js">
+	</script>
+</body>
+</html>

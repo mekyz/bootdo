@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content ">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <form class="form-horizontal m-t" id="signupForm">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">订单编号：</label>
+                            <div class="col-sm-8">
+                                <input id="toNumber" name="toNumber" class="form-control"
+                                       type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">订单状态</label>
+                            <div class="col-sm-8">
+                                <input id="toStatus" name="toStatus" class="form-control"
+                                       type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">收货人姓名：</label>
+                            <div class="col-sm-8">
+                                <input id="toReName" name="toReName" class="form-control"
+                                       type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">收货人电话：</label>
+                            <div class="col-sm-8">
+                                <input id="toRePhone" name="toRePhone" class="form-control"
+                                       type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">收货人地址：</label>
+                            <div class="col-sm-8">
+                                <input id="toReAddress" name="toReAddress" class="form-control"
+                                       type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">下单时间：</label>
+                            <div class="col-sm-8">
+                                <input id="toCreateTime" name="toCreateTime" class="form-control"
+                                       type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">买的商品和数量（rg:[{"tcId":52,"count":89}]）：</label>
+                            <div class="col-sm-8">
+                                <input id="toTcidNum" name="toTcidNum" class="form-control"
+                                       type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">订单金额：</label>
+                            <div class="col-sm-8">
+                                <input id="toPrice" name="toPrice" class="form-control" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-8 col-sm-offset-3">
+                                <button type="submit" class="btn btn-primary">提交</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:include="include::footer"></div>
+<script type="text/javascript" src="/js/appjs/order/order/add.js">
+</script>
+</body>
+</html>
